@@ -21,17 +21,17 @@ class SerialManager():
             print(warning)
             raise NotImplementedError(warning)
         
-        self.port = await navigator.serial.requestPort()
-        await self.port.open(j({"baudRate": 115200}))
+        self.port[0] = await navigator.serial.requestPort()
+        await self.port[0].open(j({"baudRate": 115200}))
         js.console.log("OPENED PORT")
 
         # Set up encoder to write to port
         self.encoder = js.TextEncoderStream.new()
-        outputDone = self.encoder.readable.pipeTo(self.port.writable)
+        outputDone = self.encoder.readable.pipeTo(self.port[0].writable)
 
         # Set up listening for incoming bytes
         self.decoder = js.TextDecoderStream.new()
-        inputDone = self.port.readable.pipeTo(self.decoder.writable)
+        inputDone = self.port[0].readable.pipeTo(self.decoder.writable)
         inputStream = self.decoder.readable
 
         self.reader = inputStream.getReader();
