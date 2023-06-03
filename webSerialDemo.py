@@ -22,7 +22,7 @@ class SerialManager():
             raise NotImplementedError(warning)
         
         self.port = await navigator.serial.requestPort()
-        await self.port.open(j({"baudRate": 9600}))
+        await self.port.open(j({"baudRate": 115200}))
         js.console.log("OPENED PORT")
 
         # Set up encoder to write to port
