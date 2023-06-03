@@ -23,15 +23,21 @@ class SerialManager():
         
         self.port[0] = await navigator.serial.requestPort()
         await self.port[0].open(j({"baudRate": 115200}))
-        js.console.log("OPENED PORT")
+        js.console.log("OPENED PORT 0")
+
+        self.port[1] = await navigator.serial.requestPort()
+        await self.port[1].open(j({"baudRate": 115200}))
+        js.console.log("OPENED PORT 1")        
 
         # Set up encoder to write to port
         self.encoder = js.TextEncoderStream.new()
         outputDone = self.encoder.readable.pipeTo(self.port[0].writable)
+        outputDone = self.encoder.readable.pipeTo(self.port[1].writable)
 
         # Set up listening for incoming bytes
         self.decoder = js.TextDecoderStream.new()
         inputDone = self.port[0].readable.pipeTo(self.decoder.writable)
+        inputDone = self.port[1].readable.pipeTo(self.decoder.writable)
         inputStream = self.decoder.readable
 
         self.reader = inputStream.getReader();
