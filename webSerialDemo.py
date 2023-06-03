@@ -125,7 +125,7 @@ async def sendValueFromInputBox(sm: SerialManager):
     '''
     textInput = js.document.getElementById("text")
     value = textInput.value
-    textInput.value = ''
+    #textInput.value = ''
     print(f"Writing to Serial Port: {value}")
 
     await sm.writeToSerial(value)
