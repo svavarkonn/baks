@@ -61,6 +61,7 @@ class SerialManager():
 
 #Create an instance of the SerialManager class when this script runs
 sm = SerialManager()
+sm1 = SerialManager()
 
 #A helper function - to point the py-click attribute of one of our buttons to
 async def sendValueFromInputBox(sm: SerialManager):
